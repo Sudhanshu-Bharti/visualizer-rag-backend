@@ -12,7 +12,7 @@ aiofiles>=23.2.1
 neo4j>=5.15.0
 
 # Machine Learning & NLP (Memory Optimized)
-torch>=2.5.0+cpu --index-url https://download.pytorch.org/whl/cpu  # CPU-only version
+torch>=2.5.0  # Will install CPU version by default on most platforms
 numpy>=1.26.0  # Python 3.13 compatible (1.24.3 fails on Py3.13)
 sentence-transformers>=3.0.0  # Updated version
 # Remove heavy dependencies for deployment

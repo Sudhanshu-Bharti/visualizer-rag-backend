@@ -14,7 +14,7 @@ neo4j>=5.15.0
 # Lightweight ML & NLP (CPU-optimized)
 # Use smaller sentence transformer models
 sentence-transformers>=3.0.0
-torch>=2.5.0+cpu --index-url https://download.pytorch.org/whl/cpu
+torch>=2.5.0
 numpy>=1.26.0
 
 # Document Processing

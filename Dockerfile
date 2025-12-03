@@ -18,6 +18,7 @@ RUN apt-get update && apt-get install -y \
 # Use minimal requirements for deployment
 COPY requirements-minimal.txt requirements.txt
 RUN pip install --no-cache-dir --upgrade pip \
+    && pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu \
     && pip install --no-cache-dir -r requirements.txt \
     && pip cache purge
 
