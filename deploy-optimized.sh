@@ -4,7 +4,7 @@
 # Set memory-efficient environment variables
 export PYTORCH_CUDA_ALLOC_CONF="max_split_size_mb:64"
 export FORCE_CPU="true"
-export DEPLOYMENT_ENV="production"
+export DEPLOYMENT_ENV="render"
 export TRANSFORMERS_CACHE="/tmp/transformers_cache"
 export HF_HOME="/tmp/hf_cache"
 export OMP_NUM_THREADS="2"

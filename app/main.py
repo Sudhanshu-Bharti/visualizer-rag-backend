@@ -49,13 +49,18 @@ allowed_origins_list = [
     origin.strip() for origin in settings.allowed_origins.split(",") if origin.strip()
 ]
 
+# For production deployment, allow all origins if not specified
+if os.getenv("DEPLOYMENT_ENV") in ["vercel", "render", "production"]:
+    if not allowed_origins_list or allowed_origins_list == [""]:
+        allowed_origins_list = ["*"]
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=allowed_origins_list,
-    allow_credentials=True,  # Enable credentials for secure cross-origin requests
+    allow_credentials=True if "*" not in allowed_origins_list else False,  # Can't use credentials with wildcard
     allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allow_headers=["Content-Type", "Authorization"],
-    expose_headers=["Content-Type"],
+    allow_headers=["*"],  # Allow all headers
+    expose_headers=["*"],  # Expose all headers
     max_age=3600,  # Cache preflight requests for 1 hour
 )
 

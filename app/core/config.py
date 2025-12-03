@@ -29,7 +29,7 @@ class Settings(BaseSettings):
     enable_memory_optimization: bool = True
 
     # CORS configuration
-    allowed_origins: str = "http://localhost:3000,http://localhost:3006,visualizer-ivory-beta.vercel.app"
+    allowed_origins: str = "http://localhost:3000,http://localhost:3006,https://visualizer-ivory-beta.vercel.app"
 
     class Config:
         env_file = ".env"
