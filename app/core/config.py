@@ -25,7 +25,7 @@ class Settings(BaseSettings):
     chunk_overlap: int = 200
 
     # CORS configuration
-    allowed_origins: str = "http://localhost:3000,http://localhost:3006"
+    allowed_origins: str = "http://localhost:3000,http://localhost:3006,visualizer-ivory-beta.vercel.app"
 
     class Config:
         env_file = ".env"
