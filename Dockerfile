@@ -31,4 +31,4 @@ RUN mkdir -p /tmp/transformers_cache /tmp/hf_cache \
 EXPOSE 8000
 
 # Use optimized startup command with memory limits
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1", "--max-requests", "100", "--max-requests-jitter", "10"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1", "--limit-max-requests", "100"]
