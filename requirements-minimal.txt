@@ -1,0 +1,33 @@
+# Minimal requirements for memory-constrained deployments
+# Core Framework
+fastapi>=0.120.2
+uvicorn[standard]>=0.24.0
+python-dotenv>=1.0.0
+python-multipart>=0.0.6
+pydantic>=2.10.0
+pydantic-settings>=2.7.0
+aiofiles>=23.2.1
+
+# Database
+neo4j>=5.15.0
+
+# Lightweight ML & NLP (CPU-optimized)
+# Use smaller sentence transformer models
+sentence-transformers>=3.0.0
+torch>=2.5.0+cpu --index-url https://download.pytorch.org/whl/cpu
+numpy>=1.26.0
+
+# Document Processing
+pypdf>=6.1.3
+python-docx>=1.1.0
+
+# HTTP & API
+httpx>=0.25.2
+
+# LLM Integration (optional for basic functionality)
+google-generativeai>=0.8.0
+tiktoken>=0.5.2
+
+# Authentication & Security
+python-jose[cryptography]>=3.3.0
+passlib[bcrypt]>=1.7.4

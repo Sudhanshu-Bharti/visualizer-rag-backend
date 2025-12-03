@@ -91,9 +91,25 @@ class DocumentProcessor:
                 document_id
             ].message = f"Text split into {len(chunks)} chunks"
 
-            chunk_embeddings = await self.embedding_service.embed_texts(chunks)
+            # Process embeddings in smaller batches to avoid OOM
+            chunk_embeddings = []
+            batch_size = 10  # Process 10 chunks at a time
+            
+            for i in range(0, len(chunks), batch_size):
+                batch_chunks = chunks[i:i + batch_size]
+                batch_embeddings = await self.embedding_service.embed_texts(batch_chunks)
+                chunk_embeddings.extend(batch_embeddings)
+                
+                # Update progress incrementally
+                progress = 0.3 + (0.2 * (i + len(batch_chunks)) / len(chunks))
+                self.processing_status[document_id].progress = progress
+                self.processing_status[document_id].message = f"Generated embeddings for {i + len(batch_chunks)}/{len(chunks)} chunks"
+                
+                # Memory cleanup between batches
+                self.embedding_service.cleanup_memory()
+            
             self.processing_status[document_id].progress = 0.5
-            self.processing_status[document_id].message = "Embeddings generated"
+            self.processing_status[document_id].message = "All embeddings generated"
 
             (
                 entities,
@@ -104,9 +120,20 @@ class DocumentProcessor:
                 document_id
             ].message = f"Extracted {len(entities)} entities and {len(relationships)} relationships"
 
-            entity_embeddings = await self.embedding_service.embed_texts(
-                [e["name"] + " " + e.get("description", "") for e in entities]
-            )
+            # Process entity embeddings in batches
+            entity_texts = [e["name"] + " " + e.get("description", "") for e in entities]
+            entity_embeddings = []
+            
+            if entity_texts:
+                batch_size = 5  # Smaller batch for entities
+                for i in range(0, len(entity_texts), batch_size):
+                    batch_texts = entity_texts[i:i + batch_size]
+                    batch_embeddings = await self.embedding_service.embed_texts(batch_texts)
+                    entity_embeddings.extend(batch_embeddings)
+                    
+                    # Memory cleanup
+                    self.embedding_service.cleanup_memory()
+            
             self.processing_status[document_id].progress = 0.8
             self.processing_status[document_id].message = "Entity embeddings generated"
 

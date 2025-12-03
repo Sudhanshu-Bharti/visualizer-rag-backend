@@ -15,14 +15,18 @@ class Settings(BaseSettings):
     ollama_model_name: str = "qwen2.5:7b-instruct"
     gemini_api_key: str = ""
 
-    # Embedding Configuration
-    embedding_model_name: str = "sentence-transformers/all-MiniLM-L6-v2"
+    # Embedding Configuration (Memory Optimized)
+    embedding_model_name: str = "sentence-transformers/all-MiniLM-L6-v2"  # Lightweight model (80MB)
     embedding_dimension: int = 384
 
-    # Upload Configuration
-    upload_max_size_mb: int = 50
-    max_chunk_size: int = 1000
-    chunk_overlap: int = 200
+    # Upload Configuration (Memory Limits)
+    upload_max_size_mb: int = 10  # Reduced from 50MB to 10MB
+    max_chunk_size: int = 500     # Reduced from 1000 to 500
+    chunk_overlap: int = 100      # Reduced from 200 to 100
+    
+    # Memory Management
+    max_batch_size: int = 5       # Maximum batch size for processing
+    enable_memory_optimization: bool = True
 
     # CORS configuration
     allowed_origins: str = "http://localhost:3000,http://localhost:3006,visualizer-ivory-beta.vercel.app"

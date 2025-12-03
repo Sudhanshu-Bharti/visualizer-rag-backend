@@ -11,12 +11,13 @@ aiofiles>=23.2.1
 # Database
 neo4j>=5.15.0
 
-# Machine Learning & NLP
-torch>=2.5.0  # Python 3.13 compatible
+# Machine Learning & NLP (Memory Optimized)
+torch>=2.5.0+cpu --index-url https://download.pytorch.org/whl/cpu  # CPU-only version
 numpy>=1.26.0  # Python 3.13 compatible (1.24.3 fails on Py3.13)
-pandas>=2.2.0  # Updated for better compatibility
 sentence-transformers>=3.0.0  # Updated version
-transformers>=4.40.0  # Updated for compatibility
+# Remove heavy dependencies for deployment
+# pandas>=2.2.0  # Commented out to reduce memory
+# transformers>=4.40.0  # Commented out to reduce memory
 
 # Document Processing
 pypdf>=6.1.3

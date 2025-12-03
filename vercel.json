@@ -1,0 +1,32 @@
+{
+  "builds": [
+    {
+      "src": "app/main.py",
+      "use": "@vercel/python",
+      "config": {
+        "maxLambdaSize": "50mb"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "app/main.py"
+    }
+  ],
+  "env": {
+    "FORCE_CPU": "true",
+    "DEPLOYMENT_ENV": "vercel",
+    "PYTORCH_CUDA_ALLOC_CONF": "max_split_size_mb:64",
+    "TRANSFORMERS_CACHE": "/tmp/transformers_cache",
+    "HF_HOME": "/tmp/hf_cache",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1"
+  },
+  "functions": {
+    "app/main.py": {
+      "maxDuration": 30
+    }
+  }
+}
